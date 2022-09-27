@@ -23,7 +23,7 @@ For achieving better results from the applied model in Machine Learning projects
 Another aspect is that the data set should be formatted in such a way that more than one Machine Learning and Deep Learning algorithm are executed in one data set, and best out of them is chosen.
 
 
-##ALGORITHM:
+## ALGORITHM:
 Importing the libraries
 Importing the dataset
 Taking care of missing data
@@ -31,11 +31,64 @@ Encoding categorical data
 Normalizing the data
 Splitting the data into test and train
 
-##PROGRAM:
-/Write your code here/
+## PROGRAM:
+~~~
+Developed by: M.Hariharan.
+Reg.No:212221230034
+~~~
+~~~
+import pandas as pd
+import numpy as np
+df = pd.read_csv("/content/Churn_Modelling.csv")
+df.info()
+df.isnull().sum()
+df.duplicated()
+df.describe()
+df['Exited'].describe()
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+df1 = df.copy()
+df1["Geography"] = le.fit_transform(df1["Geography"])
+df1["Gender"] = le.fit_transform(df1["Gender"])
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+df1[["CreditScore","Geography","Age","Tenure","Balance","NumOfProducts","EstimatedSalary"]] = pd.DataFrame(scaler.fit_transform(df1[["CreditScore","Geography","Age","Tenure","Balance","NumOfProducts","EstimatedSalary"]]))
+df1
+df1.describe()
+X = df1[["CreditScore","Geography","Gender","Age","Tenure","Balance","NumOfProducts","HasCrCard","IsActiveMember","EstimatedSalary"]].values
+print(X)
+y = df1.iloc[:,-1].values
+print(y)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+print(X_train)
+print("Size of X_train: ",len(X_train))
+print(X_test)
+print("Size of X_test: ",len(X_test))
+X_train.shape
+~~~
 
-##OUTPUT:
-/ Show the result/
+## OUTPUT:
+### Dataset
+![](3.png)
+### Checking for Null values
+![](4.png)
+### Checking for Duplicate Values
+![](5.png)
+### Describing Data
+![](6.png)
+![](7.png)
+### X-values
+![](8.png)
+### Y-values
+![](1.png)
+### X_train values and X_train Size
+![](9.png)
+### X_test values and X_test size
+![](10.png)
+### X_train shape
+![](2.png)
 
-##RESULT
-/Type your result here/
+## RESULT
+Data preprocessing is performed in a data set downloaded from kaggle.
